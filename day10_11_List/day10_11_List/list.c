@@ -68,26 +68,38 @@ void PopFront(pList* pplist)
 pNode Find(pList plist, DataType d)
 {
 	List *cur = plist;
-	while (cur->data == d)
+	while (cur != NULL)
 	{
+		if (cur->data == d)
+		{
+			return cur;
+		}
 		cur = cur->next;
-		return cur;
 	}
 
 	return NULL;
 }
 //在指定位置之前插入一个值 
-//void Insert(pList* pplist, pNode pos, DataType d)
-//{
-//	if (pplist == NULL)
-//	{
-//		return;
-//	}
-//	for (List *cur = pplist;cur != NULL ; cur=cur->next)
-//	{
-//
-//	}
-//}
+void Insert(pList* pplist, pNode pos, DataType d)
+{
+	if (pplist == NULL)
+	{
+		return;
+	}
+	if (*pplist == pos)
+	{
+		PopFront(pplist);
+		return;
+	}
+	List *newNode = BuyNode(d);
+	List *cur = *pplist;
+	while (cur->next != pos)
+	{
+		cur = cur->next;
+	}
+	newNode->next = cur->next;
+	cur->next = newNode;
+}
 
 //指定位置删除 
 void Erase(pList* pplist, pNode pos)
@@ -104,28 +116,74 @@ void Erase(pList* pplist, pNode pos)
 	cur->next = pos->next;
 	free(pos);
 }
-//void Remove(pList* pplist, DataType d)
+void Remove(pList* pplist, DataType d)
+{
+	List *cur = *pplist;
+	List *del = NULL;
+	List *pre = NULL;
+	while (cur->data != d)
+	{
+		pre = cur;
+		cur = cur->next;
+	}
+	del = cur;
+	pre->next = del->next;
+
+	free(del);
+}
+
+void RemoveAll(pList* pplist)
+{
+	if (pplist == NULL)
+	{
+		return;
+	}
+	List* cur = pplist;
+	while (cur->next != NULL)
+	{
+		free(cur);
+		cur = cur->next;
+	}
+}
+//void EraseNotTailNode(pList* pplist,pNode pos)
 //{
-//
-//	List *cur = *pplist;
-//	List *del = NULL;
-//	List *pre = NULL;
-//	while (cur != NULL)
+//	List *del;
+//	if (pplist == NULL)
 //	{
-//		pre = cur;
-//		if (cur->data = d)
-//		{
-//			del = cur->next;
-//			pre->next = del->next;
-//		}
-//		cur = cur->next;
+//		return;
 //	}
+//	//	pos 位置为第一个结点时，修改指针
+//	if (pos == pplist)
+//	{
+//		pplist = pos->next;
+//		free(pos);
+//	}
+//	// pos 位置不是第一个结点时也不是最后一个结点时
+//	pos->data = pos->next->data;   //先修改data的值
+//	del = pos->next;     //将pos->next作为要删除的结点
+//	pos->next = del->next;
 //	free(del);
 //}
+int GetListLength(pList plist)
+{
+	if (plist == NULL)
+	{
+		return 0;
+	}
+	List *cur = plist;
 
-//void RemoveAll(pList* pplist, DataType d);
-//void EraseNotTailNode(pNode pos);
+	int count = 1;
+	for (; cur != NULL; cur = cur->next)
+	{
+		count++;
+	}
+	return count;
+}
+//链表面试题 
 
+
+//1. 逆序打印单项链表 
+void PrintTailToHead(List plist);
 
 void PrintLinkList(pList plist)
 {
@@ -135,7 +193,7 @@ void PrintLinkList(pList plist)
 	}
 	List *cur = plist;
 
-	for(cur = plist;cur!=NULL;cur = cur->next)
+	for(;cur!=NULL;cur = cur->next)
 	{
 		printf("%d  ", cur->data);
 	}
@@ -152,10 +210,20 @@ void Test()
 		PushFront(&list, i);
 	}
 //	printf("%p\n",Find(list,5));
-	List *ret = Find(&list,5);
-	Erase(&list, ret);
+//	List *ret = Find(list,5);
+//	Erase(&list, ret);
+	
+//	PrintLinkList(list);
+
+	//Remove(&list, 8);
+	//PrintLinkList(list);
+
+	//List *ret = Find(list,5);
+	//Insert(&list, ret, 11);
+
+	int ret = GetListLength(list);
+	printf("%d\n", ret);
 	PrintLinkList(list);
 
-//	Remove(&list, 8);
-//	PrintLinkList(list);
+
 }

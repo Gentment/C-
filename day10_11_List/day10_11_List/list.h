@@ -1,5 +1,6 @@
 #pragma once
 #include<stdio.h>
+#include<assert.h>
 #include<stdlib.h>
 typedef int DataType;
 
@@ -23,8 +24,9 @@ void Insert(pList* pplist, pNode pos, DataType d);
 //指定位置删除 
 void Erase(pList* pplist, pNode pos);
 void Remove(pList* pplist, DataType d);
-void RemoveAll(pList* pplist, DataType d);
-void EraseNotTailNode(pNode pos);
+void RemoveAll(pList* pplist);
+void EraseNotTailNode(pList* pplist, pNode pos);
+
 void PrintLinkList(pList plist);
 int GetListLength(pList plist);
 //链表面试题 
