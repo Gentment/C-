@@ -21,12 +21,15 @@ void CreateBinTree(BTNode** pRoot, char* str, int size, int* index, BDataType in
 	node->_data = invalid;
 	node->_pLeft = node->_pRight = NULL;
 
-	//放进二叉树中
+	//放进二叉树中,如果要插入的size 小于0 则没有元素要插入
 	if (size <= 0)
 	{
 		*index = NULL;
 		return;
 	}
+
+	pRoot = &node;
+	*pRoot->_pLeft;
 
 	
 }
