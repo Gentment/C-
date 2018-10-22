@@ -1,3 +1,6 @@
+#if 0
+
+
 #include<stdio.h>
 class Test
 {
@@ -23,3 +26,6 @@ int main()
 	printf("%d\n", sizeof(Test));
 	return 0;
 }
+
+#endif // 0
+
