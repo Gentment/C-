@@ -6,32 +6,53 @@ typedef char BDataType;
 
 typedef struct BTNode
 {
-	struct BTNode* _pLeft;
-	struct BTNode* _pRight;
+	struct BTNode *_pLeft;
+	struct BTNode *_pRight;
 	BDataType _data;
 }BTNode;
 
 
 // "ABDCEF" 
 // 创建 
-void CreateBinTree(BTNode** pRoot, char* str, int size, int* index, BDataType invalid)
+void BTreeInit(BTNode* root)
 {
-	//创建结点
-	BTNode *node = (BTNode *)malloc(sizeof(BTNode));
-	node->_data = invalid;
+	root->_data = 0;
+	root = NULL;
+}
+
+//创建结点
+BTNode* CreateNode(BDataType data)
+{
+	BTNode *node = (BTNode*)malloc(sizeof(BTNode));
+	node->_data = data;
 	node->_pLeft = node->_pRight = NULL;
+	return node;
+}
+BTNode* CreateBinTree(int arr[],int size,int *pUsedSize)
+{
 
 	//放进二叉树中,如果要插入的size 小于0 则没有元素要插入
 	if (size <= 0)
 	{
-		*index = NULL;
-		return;
+		*pUsedSize = 0;
+		return NULL;
 	}
 
-	pRoot = &node;
-	*pRoot->_pLeft;
+	int leftuse , rightuse ;
+	int data = arr[0];
+	if (data == -1)
+	{
+		*pUsedSize = 1;
+		return NULL;
+	}
 
+	BTNode *root = CreateNode(data);
+	root->_pLeft = CreateBinTree(arr + 1, size - 1, &leftuse);
+	root->_pLeft = CreateBinTree(arr + 1+leftuse, size - 1-leftuse, &rightuse);
 	
+	*pUsedSize = leftuse + rightuse+1;
+
+	return root;
 }
 // 拷贝 
 BTNode* CopyBinTree(BTNode* pRoot);
@@ -40,7 +61,7 @@ BTNode* CopyBinTree(BTNode* pRoot);
 void DestroyBinTree(BTNode** pRoot);
 
 // 前序递归&非递归遍历 
-void PreOrder(BTNode* pRoot)
+void PreOrder(BTNode *pRoot)
 {
 	if (pRoot == NULL)
 	{
@@ -50,7 +71,14 @@ void PreOrder(BTNode* pRoot)
 	PreOrder(pRoot->_pLeft);
 	PreOrder(pRoot->_pRight);
 }
-void PreOrderNor(BTNode* pRoot);
+//void PreOrderNor(BTNode* pRoot)
+//{
+//	BTNode *cur = pRoot;
+//	while (cur != NULL)
+//	{
+//
+//	}
+//}
 
 // 中序递归&非递归遍历 
 void InOrder(BTNode* pRoot)
