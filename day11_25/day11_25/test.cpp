@@ -27,7 +27,7 @@ int main()
 {
 	cout << Sum<100>::value << endl;
 }
-#endif // 0
+
 
 
 #include<list>
@@ -53,4 +53,52 @@ int main()
 	}
 	cout << endl;
 	return 0;
+}
+
+#endif // 0
+
+#include<deque>
+
+class Data
+{
+public:
+	Data(int year = 1990, int month = 1,int day = 1)
+	{
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+
+	friend ostream& operator<<(ostream& _cout,Data& d)
+	{
+		_cout << d._year << "-" << d._month << "-" << d._day;
+		return _cout;
+	}
+	~Data() {};
+
+private:
+	int _year;
+	int _month;
+	int _day;
+};
+
+
+int main()
+{
+	deque<Data> d;
+
+	Data d1(2018,11,26);
+	Data d2(2018,11,25);
+	Data d3(2018,11,24);
+	Data d4(2018,11,23);
+	d.push_back(d1);
+	d.push_back(d2);
+	d.push_back(d3);
+	d.push_back(d4);
+
+	for (deque<Data>::iterator it = d.begin(); it != d.end(); ++it)
+	{
+		cout << *it << " ";
+	}
+	cout << endl;
 }
