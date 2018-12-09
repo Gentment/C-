@@ -1,14 +1,16 @@
-﻿#define _CRT_SECURE_NO_WARNINGS 0
+﻿#if 0
+
+#define _CRT_SECURE_NO_WARNINGS 0
 #include<stdio.h>
 #include<stdlib.h> 
 #include<time.h>
 
 struct PCB		/*进程控制块结构体,包含标识符、优先数、运行时间、状态、前后指针*/
 {
-	char name[6];				/*进程标识符*/
+	char name[5];				/*进程标识符*/
 	int run_time;				/*进程运行时间*/
 	int prior_num;				 /*进程优先数*/
-	char status;				/*进程状态：R-就绪,E-结束*/
+	char status[2];				/*进程状态：R-就绪,E-结束*/
 	struct PCB *pre;			/*指向后一进程的指针*/
 	struct PCB *next;			/*指向后一进程的指针*/
 };
@@ -31,6 +33,7 @@ struct PCB*init(struct PCB *p, int i) {
 	p->name[1] = 'C';
 	p->name[2] = 'B';
 	p->name[3] = i + 1 + '0';
+	p->name[4] = '\0';
 	//为进程指定运行时间
 	printf("进程 %s\n", p->name);
 	printf("请确定该进程的运行时间：");
@@ -40,7 +43,8 @@ struct PCB*init(struct PCB *p, int i) {
 	scanf("%d", &p->prior_num);
 	printf("\n");
 	//初始化进程状态为就绪
-	p->status = 'R';
+	p->status[0] = 'R';
+	p->status[1] = '\0';
 	//初始化指向后一进程的指针为空
 	p->next = NULL;
 	//返回进程
@@ -111,7 +115,7 @@ void exchange(struct PCB *p, struct PCB *max) {
 void showinfor(struct PCB *phead) {
 	struct PCB *p;
 	for (p = phead; p != NULL; p = p->next) {
-		printf("进程 %s\t 优先数 %d\t 运行时间 %d\t 状态 %c\n", p->name, p->prior_num, p->run_time, p->status);
+		printf("进程:%s\t 优先数:%d\t 运行时间:%d\t 状态:%s\n", p->name, p->prior_num, p->run_time, p->status);
 	}
 }
 //运行函数
@@ -128,7 +132,8 @@ void run(struct PCB *p) {
 //判断运行时间是否为0
 void check_runtime(struct PCB *p) {
 	if (p->run_time <= 0) {		//当运行时间为0，结束进程
-		p->status = 'E';	//修改进程状态
+		p->status[0] = 'E';	//修改进程状态
+		p->status[1] = '\0';	//修改进程状态
 		printf("进程 %s 已结束", p->name);
 		printf("\n");
 		printf("进程当前状态为：\n");
@@ -142,7 +147,10 @@ void check_runtime(struct PCB *p) {
 		head = p->next;		//将头指针顺延
 	}
 }
-int main() {
+
+
+int main() 
+{
 	struct PCB *p = NULL;	 /*p为待运行队列PCB指针*/
 	//初始化进程链表
 	PCBinit(p);
@@ -157,4 +165,7 @@ int main() {
 		run(p);		//进行调度
 		check_runtime(p); //判断运行时间是否为0
 	}
+	getchar();
+	system("pause");
 }
+#endif // 0
