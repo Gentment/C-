@@ -6,6 +6,9 @@ C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, S
 Code, Compile, Run and Debug online from anywhere in world.
 
 *******************************************************************************/
+#if 0
+
+
 #include <iostream>
 #include<vector>
 using namespace std;
@@ -62,4 +65,19 @@ int main()
 	}
 	system("pause");
 	return 0;
+}
+#endif // 0
+
+
+#include<stdio.h>
+#include<Windows.h>
+int main()
+{
+	int a = 1;
+	int b = 0;
+	if (a && b)
+	{
+		printf("wqe\n");
+	}
+	system("pause");
 }
