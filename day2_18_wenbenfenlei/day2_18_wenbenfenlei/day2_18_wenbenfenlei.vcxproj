@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="demo.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextSimilarity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TextSimilarity.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
