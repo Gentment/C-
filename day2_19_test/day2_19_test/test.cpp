@@ -120,44 +120,115 @@
 //	cout << str << endl;
 //}
 
+//
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int FindGreatestSumOfSubArray(vector<int> array) {
+//		vector<int> vec;
+//		int sum = 0;
+//		for (size_t i = 0; i < array.size()-1; i++)
+//		{
+//			if (array[i] > 0)
+//			{
+//				if (array[0] < 0) i++;
+//				sum += array[i];
+//				vec.push_back(sum + array[i + 1]);
+//			}
+//		}
+//		for (int i = 0; i < vec.size(); ++i)
+//		{
+//			cout << vec[i] << " ";
+//		}
+//		cout << endl;
+//		sort(vec.begin(), vec.end());
+//		for (int i = 0; i < vec.size(); ++i)
+//		{
+//			cout << vec[i] << " ";
+//		}
+//		cout << endl;
+//		return vec.back();
+//	}
+//};
+//
+//int main()
+//{
+//	Solution s;
+//	vector<int> vec = { 2,3,5,4,-7 };
+//	int ret = s.FindGreatestSumOfSubArray(vec);
+//	cout << ret << endl;
+//}
 
 #include<iostream>
 #include<vector>
-#include<algorithm>
+#include<queue>
+#include<unordered_set>
+#include<unordered_map>
 using namespace std;
+
+//class Solution {
+//public:
+//	vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+//		priority_queue<int,vector<int>,greater<int>> queue;
+//		for (auto &num :input)
+//		{
+//			queue.push(num);
+//		}
+//		vector<int> vec;
+//		for (int i = 0; i < k; ++i)
+//		{
+//			vec.push_back(queue.top());
+//			queue.pop();
+//		}
+//		return vec;
+//	}
+//};
+
+/*
 class Solution {
 public:
-	int FindGreatestSumOfSubArray(vector<int> array) {
-		vector<int> vec;
-		int sum = 0;
-		for (size_t i = 0; i < array.size()-1; i++)
+	int MoreThanHalfNum_Solution(vector<int> numbers) {
+		unordered_map<int,int> map;
+		unordered_set<int> set;
+		for (auto num : numbers) set.insert(num);
+		for (auto num:numbers)
 		{
-			if (array[i] > 0)
+			if (map.count(num))
 			{
-				if (array[0] < 0) i++;
-				sum += array[i];
-				vec.push_back(sum + array[i + 1]);
+				map[num]++;
+			}
+			else
+			{
+				map[num] = 1;
 			}
 		}
-		for (int i = 0; i < vec.size(); ++i)
+		for (auto num : numbers)
 		{
-			cout << vec[i] << " ";
+			if (map[num]>(numbers.size() / 2))
+			{
+				return num;
+			}
 		}
-		cout << endl;
-		sort(vec.begin(), vec.end());
-		for (int i = 0; i < vec.size(); ++i)
-		{
-			cout << vec[i] << " ";
-		}
-		cout << endl;
-		return vec.back();
+		return 0;
 	}
 };
+*/
 
+class Solution {
+public:
+	vector<string> Permutation(string str) {
+
+	}
+};
 int main()
 {
 	Solution s;
-	vector<int> vec = { 2,3,5,4,-7 };
-	int ret = s.FindGreatestSumOfSubArray(vec);
-	cout << ret << endl;
+	//vector<int> vec = { 1,2,3,2,2,2,5,4,2 };
+	//s.GetLeastNumbers_Solution(vec,4);
+	//cout << s.MoreThanHalfNum_Solution(vec) << endl;;
+	
+	return 0;
 }
