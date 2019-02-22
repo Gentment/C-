@@ -4,7 +4,7 @@ client=ChatClient
 
 .PHONY:(server)(client)
 server:
-	(cc) -o $@ $^
+	(cc) -o -std=c++11 $@ $^
 client:
 	(cc) -o $@ $^
 .PHONY clean
