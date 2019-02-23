@@ -21,15 +21,15 @@ public:
 	}
 	void InitClient()
 	{
-		tcp_sock = SocketApi::Socket(SOCK_STREAM);
 		udp_sock = SocketApi::Socket(SOCK_DGRAM);
 	}
 	bool ConnectServer()
 	{
+		tcp_sock = SocketApi::Socket(SOCK_STREAM);
 		return SocketApi::Connect(tcp_sock,peer_ip,TCP_PROT);
 	}
 
-	void Register()
+	bool Register()
 	{
 		if(Utils::RegisterEnter(nick_name,school,password) && ConnectServer())
 		{
@@ -43,15 +43,51 @@ public:
 
 			Utils::Seralize(root,rq.text);
 			
-			rq.content_length = "Content-Length: "+ Utils::IntToString(rq.text)+'\n';
+			rq.content_length = "Content-Length: "+ Utils::IntToString(rq.text).size()+'\n';
 
-			SocketApi::Send(tcp_sock,rq);
+			Utils::SendRequest(tcp_sock,rq);
+			recv(tcp_sock,&id,sizeof(id),0);
+			bool res = false;
+			if(id >= 10000)
+			{
+				std::cout<<"Register Success! Your Login ID is: "<<id<<std::endl;
+				res = true;
+			}else{
+				std::cout<<"Register Failed ! Code is :"<<id<<std::endl;
+			}
+			close(tcp_sock);
+			return res;
 		}
 	}
 
 	bool Login()
 	{
+		if(Utils::LoginEnter(id,password) && ConnectServer())
+		{
+			Request rq;
+			rq.method = "LOGIN\n";
 
+			Json::Value root;
+			root["id"] = id;
+			root["password"] = password;
+
+			Utils::Seralize(root,rq.text);
+			
+			rq.content_length = "Content-Length: "+ Utils::IntToString(rq.text).size()+'\n';
+
+			Utils::SendRequest(tcp_sock,rq);
+			recv(tcp_sock,&id,sizeof(id),0);
+			bool res = false;
+			if(result >= 10000)
+			{
+				std::cout<<"Login Success! "<<std::endl;
+				res = true;
+			}else{
+				std::cout<<"Login Failed ! Code is :"<<result<<std::endl;
+			}
+			close(tcp_sock);
+			return res;
+		}
 	}
 
 	void Chat()
