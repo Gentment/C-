@@ -5,6 +5,7 @@
 #include<json.h>
 #include "ProtocolUtil.hpp"
 #include "UserManager.hpp"
+#include "Message.hpp"
 
 #define TCP_PROT 8080
 #define UDP_PORT 8888
@@ -76,7 +77,7 @@ public:
 			rq.content_length = "Content-Length: "+ Utils::IntToString(rq.text).size()+'\n';
 
 			Utils::SendRequest(tcp_sock,rq);
-			recv(tcp_sock,&id,sizeof(id),0);
+			int result = recv(tcp_sock,&id,sizeof(id),0);
 			bool res = false;
 			if(result >= 10000)
 			{
@@ -92,7 +93,11 @@ public:
 
 	void Chat()
 	{
-
+		Message msg;
+		while(1){
+			/* code */
+		}
+		
 	}
 	~ChatClient(){}
 

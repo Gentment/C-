@@ -1,6 +1,7 @@
 #pragma once 
 #include "ProtocolUtil.hpp"
 #include "UserManager.hpp"
+#include "Message.hpp"
 #include "DataPool.hpp"
 class ChatServer
 {
@@ -27,27 +28,34 @@ public:
     }
     unsigned int LoginUser(const std::string &id,const std::string &passwd,const std::string &ip,const std::string &port){
         
-        unsigned int result = um.Check(id,passwd);
-        if(result >= 10000)
-        {
-            // um.MoveToOnLine(id,ip,port);
-        }
-        return result;
+        return um.Check(id,passwd);
     }
 
     //product
-    void RecvMessage()
+    void ProductMsg()
     {
         std::string message;
-        Utils::RecvMessage(udp_work_socket,message);
-        pool.PutMessage(message);
+        struct sockaddr_in peer;
+        Utils::RecvMessage(udp_work_socket,message,peer);
+        if(!message.empty()){
+            pool.PutMessage(message);
+            Message ms;
+            ms.ToRecvValue(message);
+            um.AddOnlineUser(ms.id,peer);
+        }
     }
 
     //consume
-    void DelMessage()
+    void ConsumMsg()
     {
         std::string message;
         pool.GetMessage(message);
+        auto online = um.OnlineUser();
+        for(auto it = online.begin; it < online.end; it++)
+        {
+            /* code */
+        }
+        
     }
 
     static void *HandlerRequest(void *arg)
