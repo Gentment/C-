@@ -85,7 +85,7 @@ public:
 	{
 		RecvOneLine(sock,rq.method);
 		RecvOneLine(sock,rq.content_length);
-		RecvOneLine(sock,rq.bank);
+		RecvOneLine(sock,rq.blank);
 
 		std::string &cl = rq.content_length;
 		std::size_t pos = cl.find(": ");
@@ -108,6 +108,22 @@ public:
 		std::cin>>id;
 		std::cout<<"Please Enter Password";
 		std::cin>>outString;
+	}
+
+	static void RecvMessage(int sock, std::string &message,struct sockaddr_in &peer)
+	{
+		char msg[BUFSIZ];
+		socklen_t len = sizeof(peer);
+		ssize_t s = recvfrom(sock,msg,sizeof(msg)-1,0,(struct sockaddr*)&peer,&len);
+		if (s<0) {
+			LOG("recvfrom message error",ERROR);
+		}else{
+			message = msg;
+		}
+	}
+	static void SendMessage(int sock,const std::string &message,struct sockaddr_in &peer)
+	{
+		sendto(sock,message.c_str(),message.size(),0,(struct sockaddr*)&peer,sizeof(peer));
 	}
 };
 

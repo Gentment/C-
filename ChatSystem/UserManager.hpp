@@ -60,7 +60,7 @@ public:
     }
 
     //校验密码
-    unsigned int Check(const std::string &id,const std::string &passwd)
+    unsigned int Check(const int &id,const std::string &passwd)
     {
         Lock();
         auto it = users.find(id);
@@ -68,6 +68,25 @@ public:
         {
             User &u = it->second;
         }
+    }
+
+    void AddOnlineUser(unsigned int id,struct sockaddr_in &peer)
+    {
+        Lock();
+        auto it = online_users.find(id);
+        if(it == online_users.end())
+        {
+            online_users.insert({id,peer});
+        }
+        UnLock();
+    }
+
+    std::unordered_map<unsigned int ,struct sockaddr_in> OnlineUser()
+    {
+        Lock();
+        auto online = online_users;
+        UnLock();
+        return online;
     }
     ~UserManager()
     {
