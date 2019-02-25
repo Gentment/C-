@@ -9,20 +9,20 @@ void Usage()
     std::cout<<"Usage:"<<"tcp_port udp_port"<<std::endl;
 }
 
-void* RunProduct()
+void *RunProduct(void *arg)
 {
-    ChatServer *sp = new ChatServer();
+    ChatServer *sp = (ChatServer*)arg;
     for(;;)
     {
         sp->ProductMsg();
     }
     
 }
-void* RunConsume()
+void *RunConsume(void *arg)
 {
-    ChatServer *sp = new ChatServer();
+    ChatServer *sp = (ChatServer*)arg;
     for(;;)
-    {
+    {   
         sp->ConsumMsg();
     }
         
@@ -41,7 +41,7 @@ int main(int argc,char *argv[])
     sp->InitServer();
     pthread_t c,p;
     pthread_create(&p,NULL,RunProduct,(void*)&sp);
-    pthread_create(&p,NULL,RunConsume,(void*)&sp);
+    pthread_create(&c,NULL,RunConsume,(void*)&sp);
     sp->Start();
     
 }

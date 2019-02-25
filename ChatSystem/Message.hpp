@@ -1,10 +1,11 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include "ProtocolUtil.hpp"
 #include<json.h>
 class Message
 {
-private:
+public:
     std::string nick_name;
     std::string school;
     std::string text;

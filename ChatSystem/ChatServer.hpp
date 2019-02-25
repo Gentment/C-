@@ -3,6 +3,12 @@
 #include "UserManager.hpp"
 #include "Message.hpp"
 #include "DataPool.hpp"
+
+class Param
+{
+
+};
+
 class ChatServer
 {
 private:
@@ -12,10 +18,12 @@ private:
     int udp_port;
 
     UserManager um;
-    DatePool pool;
+    DataPool pool;
 public:
     ChatServer(int tcp_port_=8080,int udp_port_=8888):tcp_port(tcp_port_),udp_port(udp_port_)
-    {}
+    {
+
+    }
     
     void InitServer()
     {
@@ -26,7 +34,7 @@ public:
     {
         return um.Insert(name,school,passwd);
     }
-    unsigned int LoginUser(const std::string &id,const std::string &passwd,const std::string &ip,const std::string &port){
+    unsigned int LoginUser(const unsigned int &id,const std::string &passwd,const std::string &ip,const std::string &port){
         
         return um.Check(id,passwd);
     }
@@ -60,10 +68,10 @@ public:
 
     static void *HandlerRequest(void *arg)
     {
-        // Param *p = (Pragma*)arg;
-        // int sock = p->sock;
-        // ChatServer *sp = p->sp;
-        // delete p;
+        Param *p = (Param*)arg;
+        int sock = p->sock;
+        ChatServer *sp = p->sp;
+        delete p;
         pthread_detach(pthread_self());
 
         Request rq;
@@ -98,7 +106,7 @@ public:
         {
             /* code */
             pthread_t tid;
-            pthread_create(&tid,NULL,HandlerRequest,);
+            pthread_create(&tid,NULL,HandlerRequest,(void*)tid);
         }
 
     }

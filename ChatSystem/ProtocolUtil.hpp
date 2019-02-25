@@ -19,7 +19,8 @@ public:
 	std::string blank;
 	std::string text;
 public:
-	Request():blank('\n'){}
+	Request():blank("\n")
+	{}
 };
 
 class Utils
@@ -43,7 +44,7 @@ public:
 
 	}
 
-	static void  Seralize(Json::Value &root,std::string &outString)
+	static void Seralize(Json::Value &root,std::string &outString)
 	{
 		Json::FastWriter write;
 		outString = write.write(root);
@@ -53,7 +54,6 @@ public:
 		Json::Reader read;
 		read.parse(outString,root,false);
 	}
-
 
 	static std::string IntToString(std::string &str)
 	{

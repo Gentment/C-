@@ -13,6 +13,7 @@ private:
     int product_step;
     int consume_step;
 public:
+    DataPool(){}
     DataPool(int cap_ = 512):cap(cap_),pool(cap_)
     {
         sem_init(&date_sem,0,0);
