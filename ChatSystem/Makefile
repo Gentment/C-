@@ -1,12 +1,14 @@
 cc=g++
 server=ChatServer
 client=ChatClient
+LDFLAGS=-lpthread
 
-.PHONY:(server)(client)
-server:
-	(cc) -o -std=c++11 $@ $^
-client:
-	(cc) -o $@ $^
-.PHONY clean
+.PHONY:all
+all:$(server) $(client)
+$(server):ChatServer.cc
+	$(cc) -o $@ $^ $(LDFLAGS)
+$(client):ChatClient.cc
+	$(cc) -o $@ $^ $(LDFLAGS)
+.PHONY:clean
 clean:
-	rm server client
+	rm -f $(server) $(client)

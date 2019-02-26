@@ -5,7 +5,7 @@
 #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
 
 #define NORMAL 1
-#define WORING 2
+#define WARNING 2
 #define ERROR 3
 
 const char *log_level[]={

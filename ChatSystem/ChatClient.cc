@@ -1,48 +1,56 @@
-#include<iostream>
 #include "ChatClient.hpp"
 
-void Usage(char *argv)
+void Usage(std::string port)
 {
-
+    std::cout<<"Usage:"<<"ip:"<<port<<std::endl;
 }
 static void menu()
 {
     std::cout<<"********************"<<std::endl;
-    std::cout<<"******Register******"<<std::endl;
-    std::cout<<"******Login*********"<<std::endl;
+    std::cout<<"* 1.Register******"<<std::endl;
+    std::cout<<"* 2.Login 3.exit *"<<std::endl;
     std::cout<<"*********************"<<std::endl;
 
 }
+
+// ./ChatClient ip
 int main(int argc , char *argv[])
 {
     if(argc !=2 )
     {
         Usage(argv[0]);
-        exit(0);
+        exit(1);
     }
 
-    menu();
-    int select = -1;
-    while(1){
-        std::cin >> select;
-        switch (select)
-        {
-            case 1:
-                
-                break;
-        
-            default:
-                break;
-        }
-    }
-    
-
-
-    ChatClient *cp = new ChatClient(argv[0]);
+    ChatClient *cp = new ChatClient(argv[1]);
     cp->InitClient();
     if(cp->ConnectServer())
     {
-        
+        // cp->Chat();
+        std::cout<<"connect server"<<std::endl;
     }
+
+
+    // menu();
+    // int select = -1;
+    // ChatClient *cc = new ChatClient(argv[0]);
+    // while(1){
+    //     std::cin >> select;
+    //     switch (select)
+    //     {
+    //         case 1:
+    //             cc->Register();
+    //             break;
+    //         case 2:
+    //             if(cc->Login()){
+    //                 cc->Chat();
+    //             }
+    //         default:
+    //             break;
+    //     }
+    // }
+    
+
+
 
 }
