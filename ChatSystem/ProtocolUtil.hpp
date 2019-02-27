@@ -86,26 +86,26 @@
 
 // 	}	
 
-// 	static void RecvRequest(int sock,Request &rq)
-// 	{
-// 		RecvOneLine(sock,rq.method);
-// 		RecvOneLine(sock,rq.content_length);
-// 		RecvOneLine(sock,rq.blank);
+	// static void RecvRequest(int sock,Request &rq)
+	// {
+	// 	RecvOneLine(sock,rq.method);
+	// 	RecvOneLine(sock,rq.content_length);
+	// 	RecvOneLine(sock,rq.blank);
 
-// 		std::string &cl = rq.content_length;
-// 		std::size_t pos = cl.find(": ");
-// 		if(std::string::npos == pos)
-// 		{
-// 			return;			
-// 		}
-// 		std::string sub = cl.substr(pos+2);
-// 		int size = StringToInt(sub);
-// 		char c;
-// 		for(auto i=0;i<size;i++){
-// 			recv(sock,&c,1,0);
-// 			(rq.text).push_back(c);
-// 		}
-// 	}
+	// 	std::string &cl = rq.content_length;
+	// 	std::size_t pos = cl.find(": ");
+	// 	if(std::string::npos == pos)
+	// 	{
+	// 		return;			
+	// 	}
+	// 	std::string sub = cl.substr(pos+2);
+	// 	int size = StringToInt(sub);
+	// 	char c;
+	// 	for(auto i=0;i<size;i++){
+	// 		recv(sock,&c,1,0);
+	// 		(rq.text).push_back(c);
+	// 	}
+	// }
 
 // 	static bool LoginEnter(unsigned int &id,std::string &outString)
 // 	{
@@ -175,9 +175,8 @@ public:
 		cli_addr.sin_family =AF_INET;
 		cli_addr.sin_addr.s_addr = inet_addr(peer_ip.c_str());
 		cli_addr.sin_port = htons(port);
-		std::cout<<"ip1:"<< peer_ip<<":"<<port<<std::endl;
+		
 		if(connect(sock,(struct sockaddr*)&cli_addr,sizeof(cli_addr))<0){
-			std::cout<<"ip2:"<< peer_ip<<":"<<cli_addr.sin_port<<std::endl;
 			perror("error");
 			LOG("connect error",WARNING);
 			return false;

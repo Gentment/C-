@@ -30,8 +30,8 @@ public:
 	}
 	void InitClient()
 	{
-		udp_sock = SocketApi::Socket(SOCK_DGRAM);
 		tcp_sock = SocketApi::Socket(SOCK_STREAM);
+		udp_sock = SocketApi::Socket(SOCK_DGRAM);
 	}
 	bool ConnectServer()
 	{
