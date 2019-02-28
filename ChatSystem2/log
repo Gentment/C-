@@ -1,0 +1,62 @@
+g++ -o ChatServer ChatServer.cc -I./lib/include -L./lib/lib -std=c++11 -lpthread
+In file included from Socket.hpp:9:0,
+                 from ChatServer.cc:1:
+Socket.hpp: In static member function ‘static int SocketApi::Socket(int)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+Socket.hpp:22:4: note: in expansion of macro ‘LOG’
+    LOG("socket error",ERROR);
+    ^
+Socket.hpp: In static member function ‘static int SocketApi::Bind(int, int)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+Socket.hpp:37:4: note: in expansion of macro ‘LOG’
+    LOG("bind error",ERROR);
+    ^
+Socket.hpp: In static member function ‘static int SocketApi::Listen(int)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+Socket.hpp:46:4: note: in expansion of macro ‘LOG’
+    LOG("listen error",ERROR);
+    ^
+Socket.hpp: In static member function ‘static bool SocketApi::Connect(const int&, std::string, const int&)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+Socket.hpp:59:4: note: in expansion of macro ‘LOG’
+    LOG("connect error",WARNING);
+    ^
+Socket.hpp: In static member function ‘static int SocketApi::Accept(int, std::string&, int&)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+Socket.hpp:72:4: note: in expansion of macro ‘LOG’
+    LOG("listen error",WARNING);
+    ^
+ChatServer.hpp: In static member function ‘static void* ChatServer::HandlerRequest(void*)’:
+Log.hpp:5:55: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+ #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
+                                                       ^
+ChatServer.hpp:71:9: note: in expansion of macro ‘LOG’
+         LOG(rq.text,NORMAL);
+         ^
+In file included from ChatServer.cc:3:0:
+ChatServer.hpp:75:45: error: conversion from ‘<unresolved overloaded function type>’ to non-scalar type ‘std::string {aka std::basic_string<char>}’ requested
+             std::string name = root["name"].asString;
+                                             ^
+ChatServer.hpp:76:49: error: conversion from ‘<unresolved overloaded function type>’ to non-scalar type ‘std::string {aka std::basic_string<char>}’ requested
+             std::string school = root["school"].asString;
+                                                 ^
+ChatServer.hpp:77:49: error: conversion from ‘<unresolved overloaded function type>’ to non-scalar type ‘std::string {aka std::basic_string<char>}’ requested
+             std::string passwd = root["passwd"].asString;
+                                                 ^
+ChatServer.hpp:82:42: error: cannot convert ‘Json::Value::asInt’ from type ‘Json::Value::Int (Json::Value::)()const {aka int (Json::Value::)()const}’ to type ‘unsigned int’
+             unsigned int id = root["id"].asInt;
+                                          ^
+ChatServer.hpp:83:49: error: conversion from ‘<unresolved overloaded function type>’ to non-scalar type ‘std::string {aka std::basic_string<char>}’ requested
+             std::string passwd = root["passwd"].asString;
+                                                 ^
+make: *** [ChatServer] Error 1
