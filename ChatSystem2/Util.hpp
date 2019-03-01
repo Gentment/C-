@@ -36,7 +36,7 @@ public:
     }
 
 
-    static std::string RecvMessage(int sock,std::string &message,struct sockaddr_in &peer)
+    static void RecvMessage(int sock,std::string &message,struct sockaddr_in &peer)
     {
         char msg[BUFSIZ];
         socklen_t len = sizeof(peer);
@@ -45,13 +45,11 @@ public:
             LOG("recvfrom message error",ERROR);
         }else{
             message = msg;
-        }
-        
-        
+        }      
     }
 
     static void SendMessage(int sock,std::string &message,struct sockaddr_in &peer)
     {
-        sendto(sock,message.c_str(),message.size(),0,(struct sockaddr*)&peer,sizeof(peer));
+        ssize_t s = sendto(sock,message.c_str(),message.size(),0,(struct sockaddr*)&peer,sizeof(peer));
     }
 };

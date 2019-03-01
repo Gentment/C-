@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#include"json.h"
+#include"json/json.h"
 #include"Util.hpp"
 #include<iostream>
 class Message
@@ -33,7 +33,6 @@ public:
     {
         Json::Value root;
         Util::UnSerializ(recvString,root);
-
         nick_name = root["name"].asString();
         school = root["school"].asString();
         text = root["text"].asString();
@@ -44,10 +43,10 @@ public:
     {
         return nick_name;
     }
-    const std::string &school(){
+    const std::string &School(){
         return school;
     }
-    const std::string &text(){
+    const std::string &Text(){
         return text;
     }
 

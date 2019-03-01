@@ -2,6 +2,7 @@
 #include"Socket.hpp"
 #include"json/json.h"
 #include"Util.hpp"
+#include"Message.hpp"
 
 #define TCP_PORT 8080
 #define UDP_PORT 8888
@@ -17,10 +18,17 @@ private:
     std::string nick_name;
     std::string school;
     std::string passwd;
-
+    struct sockaddr_in server;
 public:
     ChatClient(std::string ip_):ip(ip_)
-    {}
+    {
+        id=0;
+        tcp_sock = -1;
+        udp_sock = -1;
+        server.sin_family=AF_INET;
+        server.sin_addr.s_addr=inet_addr(ip.c_str());
+        server.sin_port=htons(UDP_PORT);
+    }
 
     void InitClient()
     {
@@ -126,9 +134,37 @@ public:
 
     void Chat()
     {
-        std::cout<<"chating"<<std::endl;
+        std::string name;
+        std::string school;
+        std::cout<<"Input you name:";
+        std::cin>>name;
+        std::cout<<"Input shool :";
+        std::cin>>school;
+        Message msg;
+        while(1){
+            std::string text;
+            std::cout<<"Enter";
+            std::cin>>text;
+            Message msg(name,school,text,id);
+            std::string sendString;
+            msg.ToSendString(sendString);
+            
+            std::cout<<"debug ToSendString:"<<sendString<<std::endl;
+
+            Util::SendMessage(udp_sock,sendString,server);
+            
+            std::string recvString;
+            struct sockaddr_in peer;
+            Util::RecvMessage(udp_sock,recvString,peer);
+            std::cout<<"cliend send debug:"<<recvString<<std::endl;
+            msg.ToRecvValue(recvString);
+            std::cout<<"name"<<msg.Nick_Name()<<std::endl;
+            std::cout<<"school"<<msg.School()<<std::endl;
+            std::cout<<"Text"<<msg.Text()<<std::endl;
+        }
+        
     }
     ~ChatClient(){
-       
+        
     }
 };

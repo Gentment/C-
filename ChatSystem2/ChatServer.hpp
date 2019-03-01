@@ -2,10 +2,10 @@
 #include "Socket.hpp"
 #include "Request.hpp"
 #include "Util.hpp"
+#include"Message.hpp"
 #include "UserManager.hpp"
 #include"DataPool.hpp"
 #include"Log.hpp"
-#include"Message.hpp"
 
 class ChatServer;
 
@@ -64,14 +64,7 @@ public:
     }
 
     unsigned int LoginUser(unsigned int id,std::string &passwd,const std::string &ip,const unsigned int &port){
-        unsigned int result = um.Check(id,passwd);
-        if (result >= 10000) {
-            /* code */
-        // struct sockaddr_in peer;
-        // peer.sin_addr.s_addr=inet_addr(ip);
-        // um.AddOnlineuser(id,peer);
-        }
-        return result;
+        return um.Check(id,passwd);
     }
 
     void Product()
@@ -79,13 +72,13 @@ public:
         std::string message;
         struct sockaddr_in peer;
         Util::RecvMessage(udp_work_sock,message,peer);
+        std::cout<<"Product debug"<<message<<std::endl;
         if (!message.empty()) {
             pool.PutMessage(message);
             Message m;
             m.ToRecvValue(message);        //   反序列化 获取id
-            um.AddOnlineuser(m.Id(),peer);
+            um.AddOnlineuser(m.Id(),peer);  //拿着id找scok
         }
-        
     }
 
     void Consume(){
@@ -94,6 +87,7 @@ public:
         auto online = um.OnlineUser();      //遍历在线用户，发送消息
         for(auto it = online.begin(); it !=online.end(); it++)
         {
+            std::cout<<"Consume debug:"<<message<<std::endl;
             Util::SendMessage(udp_work_sock,message,it->second);
         }
     }
