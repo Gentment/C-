@@ -44,6 +44,7 @@ public:
 
     unsigned int Check(unsigned int id,std::string passwd){
         Lock();
+        std::cout<<"Check id:"<<id<<std::endl;
         auto it = users.find(id);
         if(it != users.end()){
             std::cout<<"passwd1:"<<passwd<<std::endl;

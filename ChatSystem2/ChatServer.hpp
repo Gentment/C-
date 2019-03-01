@@ -60,7 +60,7 @@ public:
         return um.Insert(name,school,passwd);
     }
 
-    int LoginUser(unsigned int id,std::string &passwd,const std::string &ip,const unsigned int &port){
+    unsigned int LoginUser(unsigned int id,std::string &passwd,const std::string &ip,const unsigned int &port){
         unsigned int result = um.Check(id,passwd);
         if (result >= 10000) {
             /* code */
@@ -87,16 +87,24 @@ public:
         LOG(rq.text,NORMAL);
         Util::UnSerializ(rq.text,root);
 
+        std::cout<<"UnSerializ rq.text:"<<rq.text<<std::endl;
+
         if ("REGISTER" == rq.method) {
             std::string name = root["name"].asString();
             std::string school = root["school"].asString();
             std::string passwd = root["passwd"].asString();
 
             unsigned int id = cs->RegisterUser(name,school,passwd);
+            
+            std::cout<<"Register success returnd id:"<<id<<std::endl;       
+            
             send(sock,&id,sizeof(id),0);        //???????
         }else if("LOGIN" == rq.method){
             unsigned int id = root["id"].asInt();
             std::string passwd = root["passwd"].asString();
+            
+            std::cout<<"LoginUser id:"<<id<<std::endl;
+
             unsigned int result = cs->LoginUser(id,passwd,ip,port);
             send(sock,&result,sizeof(result),0);    //?????
         }else {

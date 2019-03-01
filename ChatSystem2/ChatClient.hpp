@@ -33,7 +33,7 @@ public:
         return SocketApi::Connect(tcp_sock,ip,TCP_PORT);
     }
 
-	bool RegisterEnter(std::string &nick_name,std::string school,std::string password)
+	bool RegisterEnter(std::string &nick_name,std::string &school,std::string &password)
 	{
 		std::cout<<"Please Input Nick Name:"<<std::endl;
 		std::cin>> nick_name;
@@ -64,10 +64,13 @@ public:
 
             Util::Serializ(root,rq.text);
 
-            rq.content_length = "Content_length:"+Util::IntToString((rq.text).size());
+		    std::cout<<"RegisterEnter rq.text:"<<rq.text<<std::endl;
+
+            rq.content_length = "Content_length:";
+            rq.content_length +=  Util::IntToString((rq.text).size());
             rq.content_length += "\n";
-            SocketApi::SendRequest(tcp_sock,rq);
-            recv(tcp_sock,&id,sizeof(id),0);   // return  a register id;
+            SocketApi::SendRequest(tcp_sock,rq);    //send request
+            recv(tcp_sock,&id,sizeof(id),0);   // response; return  a register id;
 
             bool res =false;
             if(id >= 10000){
@@ -87,6 +90,7 @@ public:
 		std::cin>>id;
 		std::cout<<"Password:"<<std::endl;
         std::cin>>passwd;
+        return true;
     }
 
     bool Login()

@@ -13,13 +13,13 @@ public:
     static void Serializ(Json::Value &root,std::string &string)
     {
         Json::FastWriter write;
-        write.write(root);
+        string = write.write(root);
     }
     
     static void UnSerializ(std::string &string,Json::Value &root)
     {
         Json::Reader read;
-        read.parse(string,root,true);
+        read.parse(string,root,false);
     }
 
     static std::string IntToString(int x){

@@ -83,6 +83,7 @@ public:
 		std::string &cl_ = rq.content_length;
 		std::string &b_ = rq.blank;
 		std::string &t_ = rq.text;
+		std::cout<<"SendRequest rq.text:"<<rq.text<<std::endl;
 
 		send(sock,m_.c_str(),m_.size(),0);
 		send(sock,cl_.c_str(),cl_.size(),0);
@@ -111,18 +112,23 @@ public:
 		RecvOneLine(sock,rq.content_length);
 		RecvOneLine(sock,rq.blank);
 
+		std::cout<<"RecvRequest rq.content_length:"<<rq.content_length<<std::endl;
+		
 		std::string &cl = rq.content_length;
-		std::size_t pos = cl.find(": ");
+		std::size_t pos = cl.find(":");
 		if(std::string::npos == pos)
 		{
-			return;			
+			return;
 		}
-		std::string sub = cl.substr(pos+2);
+		std::string sub = cl.substr(pos+1);
 		int size = Util::StringToInt(sub);
 		char c;
 		for(auto i=0;i<size;i++){
 			recv(sock,&c,1,0);
 			(rq.text).push_back(c);
 		}
+		std::cout<<"RecvRequest rq.text:"<<rq.text<<"len:"<<rq.text.size()<<std::endl;
+
+
 	}
 };
