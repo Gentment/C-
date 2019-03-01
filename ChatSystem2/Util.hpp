@@ -34,4 +34,9 @@ public:
         ss>>s;
         return s;
     }
+
+
+    static std::string RecvMessage(int sock,std::string &msg){
+
+    }
 };

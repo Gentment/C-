@@ -3,6 +3,7 @@
 #include "Request.hpp"
 #include "Util.hpp"
 #include "UserManager.hpp"
+#include"DataPool.hpp"
 #include"Log.hpp"
 
 class ChatServer;
@@ -32,6 +33,7 @@ private:
     int udp_port;
 
     UserManager um;
+    DataPool pool;
 public:
     ChatServer(int tcp_port_=8080,int udp_port_=8888):
         tcp_port(tcp_port_),
@@ -70,6 +72,18 @@ public:
         }
         return result;
     }
+
+    void Product()
+    {
+        std::string message;
+        Util::RecvMessage(udp_work_sock,message);
+        pool.PutMessage(message);
+    }
+
+    void Consume(){
+
+    }
+
     static void *HandlerRequest(void *arg)
     {
         Pragma *p = (Pragma*)arg;
