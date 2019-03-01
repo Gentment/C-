@@ -5,6 +5,7 @@
 #include "UserManager.hpp"
 #include"DataPool.hpp"
 #include"Log.hpp"
+#include"Message.hpp"
 
 class ChatServer;
 
@@ -76,12 +77,25 @@ public:
     void Product()
     {
         std::string message;
-        Util::RecvMessage(udp_work_sock,message);
-        pool.PutMessage(message);
+        struct sockaddr_in peer;
+        Util::RecvMessage(udp_work_sock,message,peer);
+        if (!message.empty()) {
+            pool.PutMessage(message);
+            Message m;
+            m.ToRecvValue(message);        //   反序列化 获取id
+            um.AddOnlineuser(m.Id(),peer);
+        }
+        
     }
 
     void Consume(){
-
+        std::string message;
+        pool.GetMessage(message);
+        auto online = um.OnlineUser();      //遍历在线用户，发送消息
+        for(auto it = online.begin(); it !=online.end(); it++)
+        {
+            Util::SendMessage(udp_work_sock,message,it->second);
+        }
     }
 
     static void *HandlerRequest(void *arg)

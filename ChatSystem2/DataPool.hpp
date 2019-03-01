@@ -13,7 +13,7 @@ class DataPool{
 		int product_step;
     	int consume_step;
 	public:
-		DataPool(){}
+		// DataPool(){}
 		DataPool(int cap_=512):cap(cap_),pool(cap_)
 		{
 			sem_init(&data_sem,0,0);

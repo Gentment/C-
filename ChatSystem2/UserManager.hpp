@@ -79,7 +79,7 @@ public:
         return -1;
     }
 
-    void AddOnlineuser(unsigned int id,struct sockaddr_in &peer)
+    void AddOnlineuser(unsigned int id,struct sockaddr_in &peer)    //上线
     {
         Lock();
         auto it = users.find(id);
@@ -89,6 +89,13 @@ public:
         UnLock();
     }
 
+    std::unordered_map<unsigned int ,struct sockaddr_in> OnlineUser()
+    {
+        Lock();
+        auto online = onlineusers;
+        UnLock();
+        return online;
+    }
     ~UserManager(){
         pthread_mutex_destroy(&lock);
     }
