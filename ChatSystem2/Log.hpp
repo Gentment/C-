@@ -3,7 +3,7 @@
 #include<string>
 
 #define LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
-
+//typedef LOG(msg,level) Log(msg,level,__FILE__,__LINE__)
 #define NORMAL 1
 #define WARNING 2
 #define ERROR 3
