@@ -203,7 +203,7 @@ public:
         struct Pairparam pp ={&w,this};
 
         pthread_create(&h,NULL,Welcome,&w);
-        pthread_create(&m,NULL,Input,&pp);
+        pthread_create(&m,NULL,Input,&pp);      //聊天输入线程
         w.DrawOutput();
         w.DrawOnline();
         std::string recvString;

@@ -75,13 +75,14 @@ public:
         std::cout<<"Product debug"<<message<<std::endl;
         if (!message.empty()) {
             Message m;
-            m.ToRecvValue(message);        //   反序列化 获取id
+            m.ToRecvValue(message); 
+            std::cout<<"Product Message"<<message<<std::endl;       //   反序列化 获取id
             if (m.Type()== LOGIN_TYPE) {
                 um.AddOnlineuser(m.Id(),peer);  //拿着id找sock
                 std::string name;
                 std::string school;
                 um.GetInfo(m.Id(),name,school);     
-
+                std::cout<<"name school:"<<name<<"-"<<school<<std::endl;
                 Message newmsg(name,school,m.Text(),m.Id(),m.Type());
                 newmsg.ToSendString(message);         
             }
