@@ -17,7 +17,7 @@ private:
     unsigned int type;
 public:
     Message(){}
-    Message(const std::string &n_,const std::string s_,const std::string t_,const unsigned int id_,unsigned int type_=NORMAL_TYPE):
+    Message(const std::string &n_,const std::string &s_,const std::string &t_,const unsigned int &id_,unsigned int type_=NORMAL_TYPE):
         nick_name(n_),
         school(s_),
         text(t_),

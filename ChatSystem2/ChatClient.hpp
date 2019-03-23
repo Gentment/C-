@@ -200,7 +200,7 @@ public:
     void Chat()
     {
         Window w;
-        pthread_t h,m,line;
+        pthread_t h,m;
         struct Pairparam pp ={&w,this};
 
         pthread_create(&h,NULL,Welcome,&w);
