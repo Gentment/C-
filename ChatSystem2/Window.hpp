@@ -113,7 +113,7 @@ class Window{
 			int size = onlineuser.size();
 			for(auto i=0; i < size; i++)
 			{
-				PutStringToWin(online,i+2,2,onlineuser[i]);
+				PutStringToWin(online,i+4,2,onlineuser[i]);
 				// SafeWrefresh(online);
 			}	
 		}

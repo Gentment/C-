@@ -147,6 +147,7 @@ public:
                 unsigned int type_ = LOGIN_TYPE;
                 unsigned int id_ = result;
                 Message mseg(name_,school_,text_,id_,type_);
+                std::cout<<"LoginType:"<<type_<<std::endl;
                 std::string sendmsg;
                 mseg.ToSendString(sendmsg);
                 SendMsg(sendmsg);
@@ -228,6 +229,7 @@ public:
             showString +="-";
             showString +=message.Text();   
             w.PutStringToOutput(showString);    
+            // w.DrawOnline();
             w.PutUserToOnline(online);     
         }
     }

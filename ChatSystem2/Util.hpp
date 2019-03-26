@@ -39,12 +39,14 @@ public:
 
     static void RecvMessage(int sock,std::string &message,struct sockaddr_in &peer)
     {
-        char msg[BUFSIZ];
+        char msg[10240];
         socklen_t len = sizeof(peer);
-        ssize_t s = recvfrom(sock,&msg,sizeof(msg)-1,0,(struct sockaddr*)&peer,&len);
+        ssize_t s = recvfrom(sock,&msg,sizeof(msg),0,(struct sockaddr*)&peer,&len);
+        // std::cout<<"RecvMessage:"<<msg<<std::endl;
         if (s<=0) {
             LOG("recvfrom message error",ERROR);
         }else{
+            // std::cout<<"RecvMessage:"<<msg<<std::endl;
             message = msg;
         }      
     }
@@ -61,7 +63,7 @@ public:
     }
 
 
-    static void addUser(std::vector<std::string> &online,std::string &f)
+    static void addUser(std::vector<std::string> &online,const std::string &f)
     {
         for(auto it = online.begin();it != online.end();it++)
         {
@@ -70,7 +72,7 @@ public:
                 return ;
             }
         online.push_back(f);
-        // std::cout<<"addUser to Online "<<std::endl;
+        std::cout<<"addUser to Online "<<std::endl;
         }
     }
 };
