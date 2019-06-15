@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	{
 		perror("bind error");
 		return 1;
-	}
+}
 
 	ret = listen(fd,5);
 	if(ret<0)
