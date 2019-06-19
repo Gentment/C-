@@ -55,29 +55,29 @@
 
 
 
-#include<iostream>
-
-using namespace std;
-
-template<typename T>
-void fun(T& a, T& b) {
-	cout << "a" << a << "-b: " << b << endl;
-	cout << "我是模板函数" << endl;
-}
-
-void fun(int a, char b) {
-	cout << "a" << a << "-b: " << b << endl;
-	cout << "我是函数调用" << endl;
-}
-int main() {
-
-	int a = 1;
-	char b = 'z';
-	fun(a, b);//普通函数调用，可以进行隐式的类型转换
-	fun(b, a);//  普通函数调用
-	fun(a, a);//调用函数模板（本质：参数类型化），严格按照类型匹配，不会进行类型自动转换
-	return 0;
-}
+//#include<iostream>
+//
+//using namespace std;
+//
+//template<typename T>
+//void fun(T& a, T& b) {
+//	cout << "a" << a << "-b: " << b << endl;
+//	cout << "我是模板函数" << endl;
+//}
+//
+//void fun(int a, char b) {
+//	cout << "a" << a << "-b: " << b << endl;
+//	cout << "我是函数调用" << endl;
+//}
+//int main() {
+//
+//	int a = 1;
+//	char b = 'z';
+//	fun(a, b);//普通函数调用，可以进行隐式的类型转换
+//	fun(b, a);//  普通函数调用
+//	fun(a, a);//调用函数模板（本质：参数类型化），严格按照类型匹配，不会进行类型自动转换
+//	return 0;
+//}
 
 
 /*
@@ -97,6 +97,7 @@ int main() {
 //
 //template<typename T>
 //T Max(T a, T b) {
+
 //	cout << "T Max(T a,T b)" << endl;
 //	return a > b ? a : b;
 //}
@@ -115,5 +116,28 @@ int main() {
 //	cout << Max(3.0, 4.0) << endl;//如果函数模板可以产生一个更好的匹配，则选择模板
 //	cout << Max(5.0, 6.0, 7.0) << endl;//重载
 //	cout << Max('a', 100) << endl;//调用普通函数可以隐式类型转换
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//template<class T>
+//class A
+//{
+//public:
+//	A(T a=0) {
+//		b = a;
+//	}
+//	~A();
+//	void printA() {
+//		cout << "a:" << b << endl;
+//	}
+//private:
+//	T b;
+//};
+//
+//int main() {
+//
+//	A<int> a(1);
 //	return 0;
 //}
