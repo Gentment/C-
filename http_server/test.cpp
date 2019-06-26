@@ -3,6 +3,11 @@
 //使用libevent库所需头文件  
 #include <event.h>
 
+void readcb(struct bufferevent *bev,void *ctx){
+  
+  bufferevent_get_output(bev);
+}
+
 void on_time(int sock,short event,void *arg)  
 { 
     (void)sock,
