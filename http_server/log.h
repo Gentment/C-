@@ -61,7 +61,26 @@ class LogContainer{
         LogContainer::create(name,"log.conf");\
     }\
   }while(0)
+#define INIT_LOG2(name,conf)\
+  do\
+  {\
+    if(LogContainer::get()== NULL)\
+    {\
+      LogContainer::create(name,"log.conf");\
+    }\
+  }while(0) 
 
+#define INFO_LOG(...)\
+  do\
+  {\
+    LogContainer::get()->print(Log::DEBUG,__FILE__,__LINE__,__FUNCTION__,,__VA_ARGS__);\
+  }while(0)
+
+#define ERROR_LOG(...)\
+  do\
+  {\
+    LogContainer::get()->print(Log::ERROR,__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__);\
+  }while(0) 
 #define DEBUG_LOG(...)\
   do{\
     LogContainer::get()->print(Log::DEBUG,__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__);\
