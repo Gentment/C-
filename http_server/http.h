@@ -6,6 +6,7 @@
 
 #include<event2/event.h>
 #include<event2/buffer.h>
+#include<event2/bufferevent.h>
 #include<event2/bufferevent_compat.h>
 
 class Http{
@@ -41,6 +42,8 @@ private:
      * ....
      * explict
      */
+    Http(event_base*,evutil_socket_t);
+    ~Http();
     char* get_word(char*,std::string&);
     
     bool parse_request_line();
@@ -58,8 +61,8 @@ private:
 public:
     static Http*  create(event_base*,evutil_socket_t);
     static void release(Http**);
-
     bool loop();
     void set_all_send(bool);
     bool get_all_send();
+    void run(void*arg);
 };
