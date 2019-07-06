@@ -124,10 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LRU.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="partition.cpp" />
     <ClCompile Include="tuzi.cpp" />
     <ClCompile Include="公共字符串.cpp" />
     <ClCompile Include="反转字符串.cpp" />
+    <ClCompile Include="岛屿数量.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="list_splice.h" />
+    <ClInclude Include="奇偶归位.h" />
+    <ClInclude Include="有序链表转换二叉搜索树.h" />
+    <ClInclude Include="朋友圈.h" />
+    <ClInclude Include="猴子分桃.h" />
+    <ClInclude Include="链表组件.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

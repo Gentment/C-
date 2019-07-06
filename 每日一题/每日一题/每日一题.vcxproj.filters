@@ -30,5 +30,31 @@
     <ClCompile Include="partition.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="岛屿数量.h">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="list_splice.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="朋友圈.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="有序链表转换二叉搜索树.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="链表组件.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="奇偶归位.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="猴子分桃.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

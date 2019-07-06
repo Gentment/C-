@@ -4,54 +4,58 @@
 using namespace std;
 
 
-class LRUCache {
-private:
-	int n;
-	list<pair<int, int> > lis;
-	unordered_map<int, list<pair<int, int>>::iterator> m;
-public:
-	LRUCache(int capacity) {
-		n = capacity;
-	}
-
-	int get(int key) {
-		auto it = m.find(key);
-		int ans = -1;
-		if (it != m.end())
-		{
-			ans = it->second->second;
-			lis.erase(it->second);
-			lis.push_front(make_pair(key, ans));
-			it->second = lis.begin();
-		}
-		return ans;
-	}
-
-	void put(int key, int value) {
-		auto it = m.find(key);
-		if (it != m.end())
-		{
-			lis.erase(it->second);
-			lis.push_front(make_pair(key, value));
-			m[key] = lis.begin();
-		}
-		else if (m.size() < n)
-		{
-			lis.push_front(make_pair(key, value));
-			m[key] = lis.begin();
-		}
-		else
-		{
-			auto it = lis.end();
-			it--;
-			m.erase(it->first);
-			lis.erase(it);
-			lis.push_front(make_pair(key, value));
-			it = lis.begin();
-			m[key] = it;
-		}
-	}
-};
+//class LRUCache {
+//private:
+//	int n;
+//	list<pair<int, int> > lis;
+//	unordered_map<int, list<pair<int, int>>::iterator> m;
+//public:
+//	LRUCache(int capacity) {
+//		n = capacity;
+//	}
+//
+//	int get(int key) {
+//		auto it = m.find(key);
+//		int ans = -1;
+//		if (it != m.end())
+//		{
+//			//移动到头部
+//			ans = it->second->second;
+//			lis.erase(it->second);
+//			lis.push_front(make_pair(key, ans));
+//			it->second = lis.begin();
+//		}
+//		return ans;
+//	}
+//
+//	void put(int key, int value) {
+//		auto it = m.find(key);
+//		if (it != m.end())
+//		{
+//			//刚插入的也放在头部
+//			lis.erase(it->second);
+//			lis.push_front(make_pair(key, value));
+//			m[key] = lis.begin();
+//		}
+//		else if (m.size() < n)
+//		{
+//			//头插
+//			lis.push_front(make_pair(key, value));
+//			m[key] = lis.begin();
+//		}
+//		else
+//		{
+//			//移除最后一个元素
+//			auto it = lis.end();
+//			it--;
+//			m.erase(it->first);
+//			lis.erase(it);
+//			lis.push_front(make_pair(key, value));
+//			it = lis.begin();
+//			m[key] = it;
+//		}
+//	}
+//};
 
 /**
  * Your LRUCache object will be instantiated and called as such:
@@ -70,7 +74,7 @@ public:
 //		auto it = map.find(key);
 //		if (it == map.end())
 //			return -1;
-//		ll.splice(ll.begin, ll, it->second);
+//		ll.splice(ll.begin(), ll, it->second);
 //		return it->second->second;
 //	}
 //

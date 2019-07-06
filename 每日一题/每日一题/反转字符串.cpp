@@ -1,10 +1,10 @@
 // reverse algorithm example
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//using namespace std;
 
-int main() {
+//int main() {
 	//vector<int> myvector;
 	//vector<int>::iterator it;
 
@@ -19,11 +19,11 @@ int main() {
 	//	cout << " " << *it;
 
 	//cout << endl;
-	string str = "abcd";
-	reverse(str.begin(), str.end());
-	cout << str << endl;
-	return 0;
-}
+//	string str = "abcd";
+//	reverse(str.begin(), str.end());
+//	cout << str << endl;
+//	return 0;
+//}
 
 
 
